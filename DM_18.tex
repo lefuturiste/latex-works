@@ -1,0 +1,154 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{tikz,tkz-tab,amsmath}
+\usetikzlibrary{trees}
+\usepackage{minted}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+\urlstyle{same}
+
+\parskip 1ex
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ left=20mm,
+ top=20mm,
+ bottom=20mm,
+ right=20mm
+ }
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Corrigé DM 18}
+\lhead{Ex 51 p.208}
+\rfoot{Page \thepage}
+
+\makeatletter
+\def\@seccntformat#1{%
+  \expandafter\ifx\csname c@#1\endcsname\c@section\else
+  \csname the#1\endcsname\quad
+  \fi}
+\makeatother
+
+\newcommand{\vspacem}{\vspace{2mm}}
+\newcommand{\bfrac}[2]{\displaystyle\frac{#1}{#2}}
+
+\begin{document}
+
+\tikzstyle{level 1}=[level distance=3.5cm, sibling distance=3.5cm]
+\tikzstyle{level 2}=[level distance=3.5cm, sibling distance=2cm]
+\tikzstyle{bag} = [text width=4em, text centered]
+\tikzstyle{end} = [circle, minimum width=3pt,fill, inner sep=0pt]
+\begin{tikzpicture}[grow=right, sloped]
+\node[bag] {\space}
+    child {
+        node[bag] {$N_1$}        
+            child {
+                node[end, label=right:
+                    {$N_2$}] {}
+                edge from parent
+                node[rotate=16, midway,fill=white]  {$\bfrac{1}{5}$}
+            }
+            child {
+                node[end, label=right:
+                    {$R_2$}] {}
+                edge from parent
+                node[rotate=-15, midway,fill=white]  {$\bfrac{4}{5}$}
+            }
+            edge from parent 
+            node[rotate=26, midway,fill=white]  {$\bfrac{1}{3}$}
+    }
+    child {
+        node[bag] {$R_1$}        
+        child {
+                node[end, label=right:
+                    {$N_2$}] {}
+                edge from parent
+                node[rotate=16, midway,fill=white]  {$\bfrac{1}{3}$}
+            }
+            child {
+                node[end, label=right:
+                    {$R_2$}] {}
+                edge from parent
+                node[rotate=-15, midway,fill=white]  {$\bfrac{2}{3}$}
+            }
+        edge from parent         
+            node[rotate=-26, midway,fill=white]  {$\bfrac{2}{3}$}
+    };
+\end{tikzpicture}
+
+\textbf{1.a}
+\vspacem
+
+\noindent $P(R_1 \cap R_2) = P(R_1) \times P_{R_1}(R_2) = \bfrac{4}{6} \times \bfrac{4}{6} = \bfrac{4}{9}$
+
+\noindent La probabilité que les boules tirées soient rouges est $\bfrac{4}{9}$.
+
+\vspacem
+\textbf{1.b}
+\vspacem
+
+\noindent D'après la formule des probabilités totales :
+
+$P(N_2) = P(R_1 \cap N_2) + P(N_1 \cap N_2) = \bfrac{2}{3} \times \bfrac{1}{3} + \bfrac{1}{3} \times \bfrac{1}{5} = \bfrac{13}{45}$
+
+\noindent La probabilité que la seconde boule tiré soit noire est $\bfrac{13}{45}$.
+
+\noindent $P_{N_2}(R_1) = \bfrac{P(R_1 \cap N_2)}{P(N_2)} = \bfrac{\frac{2}{3} \times \frac{1}{3}}{\frac{13}{45}} = \bfrac{10}{13}$
+
+\noindent La probabilité que la première boule soit rouge sachant que la seconde est noire est $\bfrac{10}{13}$.
+
+\vspacem
+\textbf{2.a}
+\vspacem
+
+\noindent $p$ correspond à la probabilité de tirer une boule rouge pendant un tirage. On sait qu'il y a $n$ boules noires et 4 autres boules rouges. Le nombre total de balle est $n+4$ donc $p = \bfrac{4}{n+4}$.
+
+\vspacem
+\textbf{2.b}
+\vspacem
+
+\noindent $q_n$ correspond à la probabilité de l'évènement "tirer une boule noire ou plus pendant les quatre tirages". L'évènement contraire de probabilité $r_n$ est "tirer quatre boules rouges". Donc :
+
+$q_n = 1 - r_n$
+
+\noindent Or, la probabilité de tirer quatre boules rouges, on peut la connaître grâce à loi binomiale donnée, c'est $p(X = 4)$:
+
+$p(X = 4) = \displaystyle{4 \choose 4}\bigg(\bfrac{4}{n+4}\bigg)^4 q^{4-4}$
+
+$p(X = 4) = \displaystyle{4 \choose 4}\bigg(\bfrac{4}{n+4}\bigg)^4 \times 1$
+
+$p(X = 4) = 1 \times \bigg(\bfrac{4}{n+4}\bigg)^4$
+
+$r_n = p(X = 4) = \bigg(\bfrac{4}{n+4}\bigg)^4$
+
+\noindent Donc:
+
+$q_n = 1 - \bigg(\bfrac{4}{n+4}\bigg)^4$
+
+\newpage
+\vspacem
+\textbf{2.c}
+\vspacem
+
+\noindent Pour répondre à cette question on peux utiliser un algorithme en python par exemple :
+
+\inputminted{python}{DM_18_python.py}
+
+\noindent Si on exécute la fonction avec $\text{valeur} = 0,9999$, on obtient $n = 36$. Donc, afin que la probabilité de l'évènement "avoir au moins une boule tirée sur quatre noire" soit supérieur à 0,9999 il faut avoir au moins 36 boules noires dans l'urne. De manière générale plus on a de boules noire moins on a de chance de tirer une boule rouge et donc $q_n$ tend vers 1.
+
+\end{document}
