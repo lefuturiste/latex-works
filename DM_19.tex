@@ -1,0 +1,266 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{tikz,tkz-tab,amsmath}
+\usetikzlibrary{trees}
+\usepackage{minted}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+\urlstyle{same}
+
+\parskip 1ex
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ left=20mm,
+ top=20mm,
+ bottom=20mm,
+ right=20mm
+ }
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{DM 19}
+\lhead{Ex 23 p.169}
+\rfoot{Page \thepage}
+
+\makeatletter
+\def\@seccntformat#1{%
+  \expandafter\ifx\csname c@#1\endcsname\c@section\else
+  \csname the#1\endcsname\quad
+  \fi}
+\makeatother
+
+\newcommand{\vspacem}{\vspace{2mm}}
+\newcommand{\bfrac}[2]{\displaystyle\frac{#1}{#2}}
+
+\begin{document}
+
+\textbf{1.a}
+\vspacem
+
+\noindent La fonction $G$ est est dérivable sur $\mathbb{R}$ 
+
+\noindent  $G(x)$ est de forme $\lambda u(x)$, avec $u(x) = e^{(x)^2}$, $\lambda = \displaystyle\frac{1}{2}$
+
+\noindent $u(x)$ est de forme $e^{v(x)}$, avec $v(x) = x^2$.
+
+$v'(x) = 2x$
+
+\noindent Donc $u'(x) = v'(x)\times e^{v(x)} = 2x\times e^{x^2}$
+
+\noindent Donc $G'(x) = \lambda \times u'(x) = \bfrac{1}{2} \times 2x \times e^{x^2} = x e^{x^2}$
+
+\noindent Donc la fonction $G$ définie sur $\mathbb{R}$ par $G(x)$ est une primitive sur $\mathbb{R}$ de la fonction $g$.
+
+\vspacem
+\textbf{1.b}
+\vspacem
+
+\noindent $I_1 = \displaystyle\int^1_0 x^1 e^{x^2} \space dx = \displaystyle\int^1_0 xe^{x^2} dx$
+
+\noindent $I_1 = \Big[ G(x) \Big]^1_0 = G(1) - G(0) = \bfrac{1}{2}e^{1^2} - \bfrac{1}{2}e^{0^2} = \bfrac{1}{2} e - \bfrac{1}{2} = \bfrac{1}{2}(e-1)$
+
+\vspacem
+\textbf{1.c}
+\vspacem
+
+\noindent $H_n$ est dérivable sur $\mathbb{R}$.
+
+\noindent $H_n$ est de forme $u(x) \times v(x)$. Avec :
+
+$u(x) = x^{n+1}$
+
+$u'(x) = (n+1) x^n$
+
+$v(x) = G(x) = \bfrac{1}{2} e^{x^2}$
+
+$v'(x) = g(x) = xe^{x^2}$
+
+\noindent Donc :
+
+$H_n'(x) = u'(x) v(x) + v'(x) u(x)$
+
+$\Leftrightarrow H_n'(x) = \bfrac{n+1}{2}  x^n e^{x^2} + x^{n+2} e^{x^2}$
+
+$\Leftrightarrow \displaystyle\int_0^1 H_n'(x) \space dx = \displaystyle\int_0^1 \frac{n+1}{2} x^n e^{x^2} +  x^{n+2} e^{x^2} \space dx$
+
+$\Leftrightarrow \displaystyle\int_0^1 H_n'(x) \space dx = \displaystyle\int_0^1 \frac{n+1}{2} x^n e^{x^2} \space dx + \displaystyle\int_0^1  x^{n+2} e^{x^2} \space dx$ 
+
+% (l'intégrale de la somme et la somme des intégrales)
+
+$\Leftrightarrow \displaystyle\int_0^1 H_n'(x) \space dx = \bfrac{n+1}{2} \displaystyle\int_0^1 x^n e^{x^2} \space dx + \displaystyle\int_0^1  x^{n+2} e^{x^2} \space dx$
+
+% (propriété linaire)
+
+$\Leftrightarrow \displaystyle\int_0^1 H_n'(x) \space dx = \bfrac{n+1}{2} I_n + I_{n+2}$
+
+$\Leftrightarrow I_{n+2} = H_n(1) - H_n(0) - \bfrac{n+1}{2} I_n$
+
+$\Leftrightarrow I_{n+2} = \bfrac{1}{2} e^{1^2} 1^{n+1} - \bfrac{1}{2} e^{0^2} x^{n+1} - \bfrac{n+1}{2} I_n$
+
+$\Leftrightarrow I_{n+2} = \bfrac{1}{2} e - \bfrac{1}{2} \times 0 - \bfrac{n+1}{2} I_n$
+
+$\Leftrightarrow I_{n+2} = \bfrac{1}{2} e - \bfrac{n+1}{2} I_n$
+
+\vspacem
+\textbf{1.d}
+\vspacem
+
+$I_3 = I_{1+2} = \bfrac{1}{2} e - \bfrac{1+1}{2} \times I_1 = \bfrac{1}{2} e -\Big(\bfrac{1}{2} e - \bfrac{1}{2}\Big) = \bfrac{1}{2}e - \bfrac{1}{2}e + \bfrac{1}{2} = \bfrac{1}{2}$
+
+$I_5 = I_{3+2} = \bfrac{1}{2} e - \bfrac{3+1}{2} \times I_3 = \bfrac{1}{2} e - 2 \times \bfrac{1}{2} = \bfrac{1}{2} e - 1$
+
+\vspacem
+\textbf{2.}
+\vspacem
+
+\noindent Pour trouver la réponse à cette question, il suffit d'exécuter l'algorithme en changeant la sortie pour que le programme affiche la valeur de la variable $n$
+
+\inputminted{python}{main.py}
+
+\noindent C'est le terme $I_{21}$  que l'on obtient à la sortie de cet algorithme.
+
+\vspacem
+\textbf{3.a}
+\vspacem
+
+\noindent Une intégrale est positive si 1: ses bornes sont dans l'ordre croissant (ce qui est le cas ici) 2: la fonction est positive dans les bornes de l'intégrale. 
+
+\noindent On a $x^n \geq 0$ et $e^{x^2} > 0$, donc $x^n e^{x^2} \geq 0$. D'où $I_n \geq 0$ pour tout entier naturel non nul.
+
+\vspacem
+\textbf{3.b}
+\vspacem
+
+$x \leq 1 $
+
+$\Leftrightarrow x^{n+1} \leq x^n$
+
+$\Leftrightarrow x^{n+1}e^{x^2} \leq x^n e^{x^2}$
+
+$\Leftrightarrow I_{n+1} \leq I_n$
+
+\noindent L'équation $I_{n+1} \leq I_n$ signifie que la suite $I_n$ est décroissante.
+
+\iffalse
+\begin{gather*}
+x \leq 1\\
+\Leftrightarrow x^{n+1} \leq x^n\\
+\Leftrightarrow x^{n+1}e^{x^2} \leq x^n e^{x^2}\\
+\Leftrightarrow I_{n+1} \leq I_n
+\end{gather*} 
+\fi
+
+\vspacem
+\textbf{3.c}
+\vspacem
+
+\noindent Du fait que la suite $(I_n)$ est minorée par 0 (question 3.a) et qu'elle est décroissante (question 3.b) alors on peut en déduire que la suite est convergente vers une limite $l$.
+
+\vspacem
+\textbf{4.}
+\vspacem
+
+\noindent Premièrement, on doit trouver l'encadrement de la fonction $x^n e^{x^2}$ qui est intégré dans la suite : 
+
+\noindent Avec $x \in [0, 1]$, on a $x^2 \leq 1$ donc $e^{x^2} \leq e$. On a aussi également $x^n \geq 0$. Donc :
+
+$x^n e^{x^2} \leq ex^n$
+
+\noindent On utilise la propriété de la conservation de l'ordre de l'intégrale. Si dans l'intervalle de 0 à 1 on a $x^n e^{x^2} \leq ex^n$, alors on a aussi :
+
+$\displaystyle\int^1_0 x^n e^{x^2} dx \leq \displaystyle\int^1_0 e x^n dx$
+
+\noindent On cherche l'intégrale $\int^1_0 e x^n dx$ :
+
+\noindent Une primitive de $k u(x)$ (avec $k$ constante) est $kU(x)$. Une primitive de $x^n$ est $\bfrac{x^{n+1}}{n+1}$. Donc une primitive de $e x^n$ est $e \bfrac{x^{n+1}}{n+1}$. Ce qui donne pour l'intégrale :
+
+$\displaystyle\int^1_0 e x^n dx = \Bigg[ e \bfrac{x^{n+1}}{n+1} \Bigg]^1_0 = e\bfrac{1^{n+1}}{n+1} - e\bfrac{0^{n+1}}{n+1} = \bfrac{e}{n+1}$
+
+\noindent Au final, on peut encadrer tout terme de la suite $(I_n)$ pour tout entier naturel non nul:
+
+$0 \leq I_n \leq \bfrac{e}{n+1}$
+
+\noindent Grâce à cet encadrement on peut déterminer la limite avec le théorème des gendarmes :
+
+\[
+    \left.\begin{matrix*}[r]
+       0 \leq I_n \leq \bfrac{e}{n+1}\\
+       \\
+       \\
+       \displaystyle\lim_{n \to + \infty} 0 = 0\\
+       \\
+       \\
+       \displaystyle\lim_{n \to + \infty} \bfrac{e}{n+1} = 0
+    \end{matrix*}\medspace\right\}
+    \left.\begin{matrix*}
+        \space\text{D'après le théorème des gendarmes :}\vspace{2mm}\\
+        \displaystyle\lim_{n\rightarrow+\infty} I_n = 0
+    \end{matrix*}\right.
+\]
+
+Donc la suite $(I_n)$ est convergente et a pour limite $l = 0$.
+
+
+
+\iffalse
+
+$\int^1_0 H_n \space dx = H_n(1) - H_n(0)$
+On cherche l'intégrale de $H_n'$
+$H_n'(x) = e^{x^2} \Bigg(\bfrac{1}{2} (n+1) x^n + x^2 \times x^{n} \Bigg)$
+
+$H_n'(x) = e^{x^2} x^n \Bigg(\bfrac{n+1}{2} + x^2 \Bigg)$
+
+
+$I_{n+2} = \displaystyle\int^1_0 x^{n+2} e^{x^2} \space dx$
+
+$I_{n+2} = \displaystyle\int^1_0 x^{n+1} x e^{x^2} \space dx$
+
+$I_{n+2} = \displaystyle\int^1_0 x^{n+1} g(x) \space dx$
+
+\noindent La fonction à intégrer est de forme $u$
+
+\iffalse
+$h(x) = x^{n+2} e^{x^2}$
+\fi
+
+\newpage
+\vspace{5mm}
+
+\noindent On considère la suite $(I_n)$ définie pour $n$ entier naturel non nul par :
+
+$I_n = \displaystyle\int^1_0 x^n e^{x^2} \space dx$
+
+\noindent Soit la fonction $g$ définie sur $\mathbb{R}$ par $g(x) = xe^{x^2}$
+
+\noindent Soit la fonction $G$,  une primitive sur $\mathbb{R}$ de la fonction $g$, définie sur $\mathbb{R}$ par $G(x) = \bfrac{1}{2} e^{x^2}$
+
+\noindent Pour tout entier naturel $n$, on définit sur $\mathbb{R}$ la fonction $H_n$ par :
+
+\vspace{1mm}
+$H_n(x) = x^{n+1} G(x)$
+\vspace{1mm}
+
+\noindent Montrer que $H_n$ est dérivable sur $\mathbb{R}$, calculer pour tout réel $x$, $H_n'(x)$ et en déduire que, pour tout entier naturel $n$ :
+
+\vspace{1mm}
+$I_{n+2} = \bfrac{1}{2} e - \bfrac{n+1}{2} I_n$
+
+\fi
+
+
+\end{document}

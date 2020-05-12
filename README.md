@@ -1,6 +1,6 @@
-# Latex works
+# LaTex works
 
-These are some latex file that I made during lockdown for my math homeworks. This can be useful if you are looking for latex examples.
+These are some LaTex file that I made during lockdown for my math homeworks. This can be useful if you are looking for LaTex examples.
 
 All the source code can be viewed compiled on the overleaf platform:
 
@@ -11,4 +11,4 @@ All the source code can be viewed compiled on the overleaf platform:
 - [Homework DM#17](https://www.overleaf.com/read/xbfxmkbbfwxd)
 - [Homework DM#18](https://www.overleaf.com/read/mngqxptvwwyj)
 - [Some 3D drawing](https://www.overleaf.com/read/grgfvkshdpxn)
-
+- [Homework DM#19](https://www.overleaf.com/read/wwjqnysxvtvw)
