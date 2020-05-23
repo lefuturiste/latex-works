@@ -1,0 +1,343 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{tikz,tkz-tab,amsmath}
+\usetikzlibrary{trees}
+\usepackage{minted}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+\urlstyle{same}
+
+\parskip 1ex
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ left=20mm,
+ top=20mm,
+ bottom=20mm,
+ right=20mm
+ }
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{DM 20}
+\lhead{Ex 2 p.20}
+\rfoot{Page \thepage}
+
+% https://www.sujetdebac.fr/annales-pdf/2019/s-mathematiques-obligatoire-2019-metropole-sujet-officiel.pdf
+
+% https://www.sujetdebac.fr/annales-pdf/2019/s-mathematiques-obligatoire-2019-metropole-corrige.pdf
+
+\makeatletter
+\def\@seccntformat#1{%
+  \expandafter\ifx\csname c@#1\endcsname\c@section\else
+  \csname the#1\endcsname\quad
+  \fi}
+\makeatother
+
+\newcommand{\vspacem}{\vspace{2mm}}
+\newcommand{\bfrac}[2]{\displaystyle\frac{#1}{#2}}
+
+\newif\ifquoteopen
+\catcode`\"=\active % lets you define `"` as a macro
+\DeclareRobustCommand*{"}{%
+   \ifquoteopen
+     \quoteopenfalse ''%
+   \else
+     \quoteopentrue ``%
+   \fi
+}
+
+\begin{document}
+
+\subsection*{Partie A}
+
+\textbf{1.a}
+\vspacem
+
+\noindent La durée moyenne d'une partie de type A est en fait l'espérance de la variable aléatoire $X_A$. Vu que $X_A$ suit la lui uniforme qui est une loi à densité, alors l'espérance peut se calculer suivant deux méthodes :
+
+\noindent La première méthode consiste à utiliser la définition de l'espérance pour toute variable aléatoire suivant une loi à densité :
+
+$E(X_A) = \displaystyle\int_a^b x f(x) \: \mathrm{d}x$
+
+\noindent (avec a étant la borne inférieure et b la borne supérieure de l'intervalle), $f(x)$ étant la fonction de densité de cette variable $X_A$.
+
+\noindent Pour les variable suivant la loi uniforme la fonction de densité $f(x)$ est:
+
+$f(x) = \displaystyle\frac{1}{b-a}$ dans ce cas $f(x) =  \bfrac{1}{25-9} = \bfrac{1}{16}$.
+
+\noindent Donc l'espérance de cette variable aléatoire est :
+
+$E(X_A) = \displaystyle\int_9^{25} \bfrac{1}{16}x \: \mathrm{d}x$
+
+\noindent On calcule une primitive $F(x)$ de la fonction $\bfrac{1}{16}x$ à intégrer :
+
+$F(x) = \bfrac{1}{16} \times \bfrac{1}{2} x^2 =  \bfrac{1}{32} x^2$
+
+$E(X_A) = \Big[  \bfrac{1}{32} x^2 \Big]_9^{25} =  \bfrac{1}{32} 25^2 -  \bfrac{1}{32} 9^2 =  \bfrac{625}{12} - \bfrac{81}{32} = 17$
+
+\noindent Il existe une deuxième méthode, beaucoup plus rapide qui utilise la formule de l'espérance pour toute variable X suivant la loi uniforme $E(X) = \bfrac{a+b}{2}$ :
+
+$E(X_A) = \bfrac{25+9}{2} = \bfrac{34}{2} = 17$
+
+\noindent La durée moyenne d'une partie de type $A$ est donc de $17$ minutes.
+
+\vspacem
+\textbf{1.b}
+\vspacem
+
+\noindent C'est l'espérance de la variable aléatoire $X_B$ que l'on cherche ici. Pour une variable aléatoire suivant la loi normale l'espérance est la moyenne $\mu$. On sait que $\mu$ est la valeur en abscisse pour laquelle la fonction de densité est maximale. Donc, d'après le graphique $\mu = 17$. Pour une partie de type B, la durée moyenne d'une partie est aussi de 17 min.
+
+\vspacem
+\textbf{2.}
+\vspacem
+
+\noindent On appelle $I$ l'évènement : "la partie est inférieure à 20 minutes".
+
+\noindent Vu que le type de partie est choisi de manière équiprobable, la probabilité de l'évènement $I$ peut être la probabilité que $X_A$ soit comprise entre $9$ et $20$ ou bien ça peut être la probabilité que $X_B$ soit comprise entre $-\infty$ et $20$. Donc la probabilité de $I$ est la moyenne de ces deux probabilités.
+
+$P(I) = \bfrac{P(9 \leq X_A \leq 20) + P(X_B \leq 20)}{2}$
+
+\noindent Vu que $X_A$ suit la loi uniforme : $P(9 \leq X_A \leq 20) = \bfrac{20-9}{25-9} = 0.688$. C'est en fait l'aire d'un rectangle de $11$ par $\bfrac{1}{16}$ ou l'aire sous la courbe représentant la fonction de densité sur l'intervalle $[9; 20]$.
+
+\noindent Pour $X_B$, on peut intégrer la fonction de densité.
+La fonction de densité que l'on nomme $g(x)$ pour $X_B$ a pour forme : (ici $\mu = 17$ et $\sigma = 3$)
+
+$g(x) = \bfrac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}} = \bfrac{1}{3 \sqrt{2\pi}} e^{-\frac{(x-17)^2}{18}}$
+
+\noindent La probabilité que $X_B$ soit inférieure à 20 est l'aire sous la courbe représentent la fonction de densité $g(x)$ sur l'intervalle $]-\infty, 20]$. On utilise la calculatrice afin d'obtenir une valeur approché de cette intégrale.
+
+$P(X_B \leq 20) = \displaystyle\int_{-\infty}^{20} g(x) \: \mathrm{d}x \simeq 0.841$
+
+\noindent Pour la bonne inférieure, on peut prendre 0 ou alors une valeur négative très petite mais dans tout les cas ça suffit pour l'approximation. On peut aussi directement utiliser une calculatrice ou un logiciel en rentrant directement les paramètres $\mu$, $\sigma$ et les deux bornes.
+
+\vspace{2mm}
+
+$P(I) = \bfrac{0.688 + 0.841}{2} = 0.765$
+
+\vspace{2mm}
+
+\noindent Au final, la probabilité qu'une partie soit inférieure à 20 minutes est de $0.765$.
+
+\subsection*{Partie B}
+
+\vspacem
+\textbf{1.a}
+\vspacem
+
+\tikzstyle{level 1}=[level distance=3.5cm, sibling distance=3.5cm]
+\tikzstyle{level 2}=[level distance=3.5cm, sibling distance=2cm]
+\tikzstyle{bag} = [text width=4em, text centered]
+\tikzstyle{end} = [circle, minimum width=3pt,fill, inner sep=0pt]
+\begin{tikzpicture}[grow=right]
+\node[bag] {\space}
+    child {
+        node[bag] {$B_n$}
+            child {
+                node[end, label=right:
+                    {$B_{n+1}$}] {}
+                edge from parent
+                node[midway,fill=white]  {$0.7$}
+            }
+            child {
+                node[end, label=right:
+                    {$A_{n+1}$}] {}
+                edge from parent
+                node[midway,fill=white]  {$0.3$}
+            }
+            edge from parent 
+            node[midway,fill=white]  {$1-a_n$}
+    }
+    child {
+        node[bag] {$A_n$}
+            child {
+                node[end, label=right:
+                    {$B_{n+1}$}] {}
+                edge from parent
+                node[midway,fill=white]  {$0.2$}
+            }
+            child {
+                node[end, label=right:
+                    {$A_{n+1}$}] {}
+                edge from parent
+                node[midway,fill=white]  {$0.8$}
+            }
+        edge from parent         
+            node[midway,fill=white]  {$a_n$}
+    };
+\end{tikzpicture}
+
+\vspacem
+\textbf{1.b}
+\vspacem
+
+\noindent On utilise la formule des probabilités totales :
+
+$a_{n+1} = P(A_{n+1}) = 0.8 a_n + 0.3 (1-a_n)$ 
+
+$a_{n+1} = 0.8a_n + 0.3 - a_n$ 
+
+$a_{n+1} = 0.5a_n + 0.3$ 
+
+\vspacem
+\textbf{2.a}
+\vspacem
+
+\noindent Posons $P_n$ : "$0 \leq a_n \leq 0.6$"
+
+\noindent \underline{\textbf{Initialisation}} : Pour $n=1$ : $a_1 = a = 0.5$, $\: 0 \leq 0.5 \leq 0.6$ est vraie. Donc $P_0$ est vraie.
+
+\vspace{2mm}
+
+\noindent \underline{\textbf{Hérédité}} : On suppose que $P_n$ est vraie pour un certain naturel $n$. Montrons que $P_{n+1}$ est vraie c'est-à-dire montrons que: $0 \leq a_{n+1} \leq 0.6$
+
+$0 \leq a_n \leq 0.6$
+
+$\Leftrightarrow 0 \leq 0.5 \times a_n \leq 0.5 \times 0.6$
+
+$\Leftrightarrow 0 \leq 0.5a_n \leq 0.3$
+
+$\Leftrightarrow 0.3 \leq 0.5a_n + 0.3 \leq 0.3 + 0.3$
+
+$\Leftrightarrow 0.3 \leq a_{n+1} \leq 0.6$
+
+\noindent Donc $P_{n+1}$ est vraie.
+
+\vspace{2mm}
+
+\noindent \underline{\textbf{Conclusion}} : On a montré que $P_n$ est vraie au rang 1 et que $P_n$ est héréditaire donc :
+
+$\forall n \geq 1, \quad 0 \leq a_n \leq 0.6$
+
+\newpage
+\textbf{2.b}
+\vspacem
+
+\noindent Si la suite $(a_n)$ est croissante alors l'expression $a_{n+1} - a_n$ est positive pour tout $n \geq 1$
+
+$a_{n+1} - a_n = 0.5a_n + 0.3 - a_n = -0.5a_n + 0.3$
+
+\noindent On utilise le résultat de la question 2.a :
+
+$0 \leq a_n \leq 0.6$
+
+$\Leftrightarrow 0 \geq a_n \times -0.5 \geq 0.6 \times -0.5$
+
+$\Leftrightarrow 0 \geq -0.5a_n \geq -0.3$
+
+$\Leftrightarrow 0 + 0.3 \geq -0.5a_n + 0.3 \geq -0.3 + 0.3$
+
+$\Leftrightarrow 0.3 \geq a_{n+1} - a_n \geq 0$
+
+\noindent On a bien l'expression $a_{n+1} - a_n$ positive, donc la suite $(a_n)$ est croissante.
+
+\vspacem
+\textbf{2.c}
+\vspacem
+
+\noindent A la question 2.a on a montré que $\forall n \in \mathbb{N}^*, \quad 0 \leq a_n \leq 0.6$, c'est à dire que la suite $(a_n)$ est majoré par $0.6$ on a également montré à la question 2.b que $(a_n)$ était croissante. Une suite majoré et croissante est convergente donc $(a_n)$ est convergente.
+
+\noindent La limite de la suite $(a_n)$ vérifie l'équation $l = a_n = a_{n+1}$
+
+$l = a_n = a_{n+1} $
+
+$\Leftrightarrow l = 0.5l + 0.3$
+
+$\Leftrightarrow 0 = -0.5l + 0.3$
+
+$\Leftrightarrow -0.3 = -0.5l$
+
+$\Leftrightarrow 0.3 = 0.5l$
+
+$\Leftrightarrow \bfrac{0.3}{0.5} = l$
+
+$\Leftrightarrow l = 0.6$
+
+\noindent Donc la limite de la suite $(a_n)$ est $0.6$.
+
+\vspacem
+\textbf{3.a}
+\vspacem
+
+
+$U_{n+1} = a_{n+1} - 0.6$
+
+$U_{n+1} = 0.5a_n + 0.3 - 0.6$
+
+$U_{n+1} = 0.5a_n - 0.3$
+
+\noindent Or, $U_n = a_n - 0.6 \Leftrightarrow a_n = U_n + 0.6$, donc :
+
+$U_{n+1} = 0.5(U_n + 0.6) - 0.3$
+
+$U_{n+1} = 0.5U_n + 0.5 \times 0.6 - 0.3$
+
+$U_{n+1} = 0.5U_n + 0.3 - 0.3$
+
+$U_{n+1} = 0.5U_n$
+
+\noindent La suite $(U_n)$ est donc une suite géométrique de raison $0.5$.
+
+\vspacem
+\textbf{3.b}
+\vspacem
+
+\noindent Le terme général de la suite $(U_n)$ est donné par l'expression $U_n = U_1 \times q^{n-1}$. 
+
+$U_1 = a_1 - 0.6 = a - 0.6$
+
+$U_n = (a - 0.6) 0.5^{n-1}$
+
+\noindent Donc:
+
+$a_n = U_n + 0.6$
+
+$a_n = (a - 0.6) \times 0.5^{n-1} + 0.6$
+
+\newpage
+\textbf{3.c}
+
+\[
+    \left.\begin{matrix*}[r]
+       \left.\begin{matrix*}[r]
+           \scriptstyle\text{(car $0.5 < 1$)} \displaystyle\lim_{n \rightarrow +\infty} 0.5^{n-1} = 0
+           \\\\
+            \displaystyle\lim_{n\rightarrow +\infty} a - 0.6\\
+        \end{matrix*}\medspace\right\}
+        \left.\medspace\begin{matrix*}
+            \space\text{par produit :}\vspace{2mm}\\
+            \displaystyle\lim_{n\rightarrow +\infty} (a-0.6)\times 0.5^{n-1} = 0\\
+        \end{matrix*}\right.
+       \\\\
+        \displaystyle\lim_{n\rightarrow +\infty} 0.6 = 0.6
+    \end{matrix*}\medspace\right\}
+    \left.\medspace\begin{matrix*}
+        \space\text{par somme :}\vspace{2mm}\\
+            \displaystyle\lim_{n\rightarrow +\infty} a_n = 0.6
+    \end{matrix*}\right.
+\]
+
+\noindent Cette limite ne dépend pas de la valeur de $a$.
+
+\vspacem
+
+\textbf{3.d}
+
+\noindent Quand le nombre de parties tend vers $+\infty$, le joueur va plutôt jouer une partie de type $A$ vu que $a_n > 0.5$ (60\% partie A et 40\% partie B). Donc c'est la publicité insérée en début des parties de type A qui devrait être la plus vue par un joueur pratiquant beaucoup les jeux vidéo sur cette platforme. 
+
+\vspace{2mm}
+\end{document}

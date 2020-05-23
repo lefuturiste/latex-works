@@ -1,0 +1,196 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{tikz,amsmath}
+\usetikzlibrary{trees}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=blue,
+}
+\urlstyle{same}
+
+\parskip 1ex
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ left=20mm,
+ top=20mm,
+ bottom=20mm,
+ right=20mm
+ }
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{DM 21}%(corrigé)
+\lhead{Ex 1 p.27}
+\rfoot{Page \thepage}
+
+\makeatletter
+\def\@seccntformat#1{%
+  \expandafter\ifx\csname c@#1\endcsname\c@section\else
+  \csname the#1\endcsname\quad
+  \fi}
+\makeatother
+
+\newcommand{\vspacem}{\vspace{2mm}}
+\newcommand{\bfrac}[2]{\displaystyle\frac{#1}{#2}}
+
+\newif\ifquoteopen
+\catcode`\"=\active % lets you define `"` as a macro
+\DeclareRobustCommand*{"}{%
+   \ifquoteopen
+     \quoteopenfalse ''%
+   \else
+     \quoteopentrue ``%
+   \fi
+}
+
+\begin{document}
+
+%https://www.sujetdebac.fr/annales-pdf/2019/s-mathematiques-obligatoire-2019-amerique-nord-corrige.pdf
+
+\subsection*{Partie A}
+
+\textbf{1.a}
+\vspacem
+
+\noindent Vu que la variable aléatoire $X$ suit la loi normale avec les paramètres $\mu = 1.5$ et $\sigma = 0.07$ on calcule la probabilité que X soit compris dans l'intervalle de validité : $P(1.35 \leq X \leq 1.65)$
+
+\noindent Grâce à la commande $normalFRep(1.35, 1.65, 1.5, 0.07)$  sur la calculatrice on obtient :
+
+$P(1.35 \leq X \leq 1.65) = 0.968$
+
+\noindent La probabilité que le tube soit accepté au contrôle est donc de $0.968$.
+
+\vspacem
+\textbf{1.b}
+
+\noindent $X_1$ suit la loi normale $N(1.5n \sigma_1)$
+
+\noindent On connaît $P(1.35 \leq x \leq 1.65) = 0.98$
+
+\noindent On remarque le fait que l'espérance $1.5$ est au milieu de l'intervalle de validité de l'épaisseur d'un tube $[1.35, 1.65]$ car $\bfrac{1.35+1.65}{2} = 1.5$. On peut donc établir la relation : 
+
+$P(1.35 \leq X \leq 1.65) = 2 \times P(1.5 \leq X \leq 1.65)$
+
+$\Leftrightarrow 0.98 = 2 \times (P(X \leq 1.65) - P(X \leq 1.5))$
+
+$\Leftrightarrow 0.98 = 2(P(X\leq 1.65) - 0.5)$
+
+$\Leftrightarrow 0.98 = 2P(X \leq 1.65) - 2\times 0.5$
+
+$\Leftrightarrow 0.98 = 2P(X \leq 1.65) - 1$
+
+$\Leftrightarrow \bfrac{1.98}{2} = P(X \leq 1.65)$
+
+$\Leftrightarrow 0.99 = P(X \leq 1.65)$
+
+\noindent On transforme la probabilité $P(X \leq 1.65)$ dans un contexte de loi normale centré réduite:
+
+$P\Big(Z \leq \bfrac{0.15}{\sigma_1}\Big) = 0.99$
+
+\noindent On connaît donc l'aire sous la courbe sur l'intervalle $\Big]-\infty, \bfrac{0.15}{\sigma_1}\Big]$, on utilise alors une fonction de la calculatrice pour trouver la valeur de la borne supérieure :
+
+$FracNormale(0.99, 0, 1) = 2.326$
+
+\noindent On en déduit alors la valeur de $\sigma_1$
+
+$\bfrac{0.15}{\sigma_1} = 2.326 \Leftrightarrow \bfrac{0.15}{\sigma_1} = 2.326$
+
+$\Leftrightarrow \sigma_1 = \bfrac{1}{2.326} \times 0.15 \Leftrightarrow \sigma_1 = 0.064$
+
+\vspacem
+\textbf{2.a}
+
+\noindent On a la probabilité $p = 0.02$ (ou proportion) pour l'évènement $"Avoir un tube non conforme pour la longueur"$ donc $q = 1-p = 1-0.02 = 0.98$ (la probabilité de l'événement contraire).
+
+\noindent On a $n = 250$ ainsi que $F_{250} = \bfrac{10}{250} = 0.04$
+
+\noindent On utilise la définition de l'intervalle de fluctuation asymptotique de $F_n$ au seuil $95\%$ :
+
+$I = \Big[p - 1.96\bfrac{\sqrt{pq}}{n}; p + 1.96\bfrac{\sqrt{pq}}{\sqrt{n}} \Big]$
+
+\noindent On calcule le terme commun aux deux borne de manière indépendante, on appelle ce facteur $h$:
+
+$h = 1.96\bfrac{\sqrt{pq}}{n} = 1.96\bfrac{\sqrt{0.02 \times 0.98}}{\sqrt{250}} = 0.017$
+
+$I = [0.02 - 0.017; 0.02 + 0.017] = [0.003; 0.037]$
+
+\vspacem
+\textbf{2.b}
+
+\noindent On remarque que la fréquence $F_{250} = 0.04$ obtenue n'est pas contenue dans l'intervalle de fluctuation calculé à la question $2.a$. Dans ce cas il faut réviser la machine.
+
+\subsection*{Partie B}
+
+\textbf{1.}
+
+\tikzstyle{level 1}=[level distance=3.5cm, sibling distance=3.5cm]
+\tikzstyle{level 2}=[level distance=3.5cm, sibling distance=2cm]
+\tikzstyle{bag} = [text width=4em, text centered]
+\tikzstyle{end} = [circle, minimum width=3pt,fill, inner sep=0pt]
+\begin{tikzpicture}[grow=right]
+\node[bag] {\space}
+    child {
+        node[bag] {$\bar{E}$}
+            child {
+                node[end, label=right:
+                    {$\bar{L}$}] {}
+                edge from parent
+                node[midway,fill=white]  {$0.1$}
+            }
+            child {
+                node[end, label=right:
+                    {$L$}] {}
+                edge from parent
+                node[midway,fill=white]  {$0.9$}
+            }
+            edge from parent 
+            node[midway,fill=white]  {$0.04$}
+    }
+    child {
+        node[bag] {$E$}
+            child {
+                node[end, label=right:
+                    {$\bar{L}$}] {}
+                edge from parent
+                node[midway,fill=white]  {$0.05$}
+            }
+            child {
+                node[end, label=right:
+                    {$L$}] {}
+                edge from parent
+                node[midway,fill=white]  {$0.95$}
+            }
+        edge from parent         
+            node[midway,fill=white]  {$0.96$}
+    };
+\end{tikzpicture}
+
+\noindent D'après l'énoncé : $P(L \cap \bar{E}) = 0.036$
+
+\noindent On cherche $P_{\bar{E}}(L) = \bfrac{P(L \cap \bar{E})}{P(\bar{E})} = \bfrac{0.036}{0.04} = 0.9$
+
+\noindent Donc $P_{\bar{E}}(\bar{L}) = 1 - P_{\bar{E}}(L) = 1 - 0.9 = 0.1$
+
+\vspacem
+\textbf{2.}
+
+\noindent On utilise la formule des probabilités totales :
+
+$P(L) = P_E(L) \times P(E) + P_{\bar{E}}(L) \times P(\bar{E}) = 0.96 \times 0.95 + 0.04 \times 0.9 = 0.948$
+
+
+\vspace{2mm}
+\end{document}

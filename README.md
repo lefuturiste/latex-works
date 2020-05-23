@@ -12,3 +12,5 @@ All the source code can be viewed compiled on the overleaf platform:
 - [Homework DM#18](https://www.overleaf.com/read/mngqxptvwwyj)
 - [Some 3D drawing](https://www.overleaf.com/read/grgfvkshdpxn)
 - [Homework DM#19](https://www.overleaf.com/read/wwjqnysxvtvw)
+- [Homework DM#20](https://www.overleaf.com/read/kmfbptpjzzkd)
+- [Homework DM#21](https://www.overleaf.com/read/qnxfvfdmsbbw)
