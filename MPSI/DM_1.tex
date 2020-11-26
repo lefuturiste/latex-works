@@ -1,0 +1,346 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{tikz,amsmath}
+\usepackage{tikz,tkz-tab,amsmath}
+\usetikzlibrary{trees}
+\usetikzlibrary{arrows}
+\usepackage{enumerate}
+
+%\setlength{\TPHorizModule}{1mm}
+%\setlength{\TPVertModule}{1mm}
+  
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=blue,
+}
+\urlstyle{same}
+
+\parskip 1ex
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ left=20mm,
+ top=20mm,
+ bottom=20mm,
+ right=20mm
+ }
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Matthieu Bessat}
+\rhead{DM 1}
+\rfoot{Page \thepage}
+
+\makeatletter
+\def\@seccntformat#1{%
+  \expandafter\ifx\csname c@#1\endcsname\c@section\else
+  \csname the#1\endcsname\quad
+  \fi}
+\makeatother
+
+\newcommand{\vspacem}{\vspace{2mm}}
+\newcommand{\bfrac}[2]{\displaystyle\frac{#1}{#2}}
+\newcommand{\bbinom}[2]{\displaystyle\binom{#1}{#2}}
+
+\newif\ifquoteopen
+\catcode`\"=\active % lets you define `"` as a macro
+\DeclareRobustCommand*{"}{%
+   \ifquoteopen
+     \quoteopenfalse ''%
+   \else
+     \quoteopentrue ``%
+   \fi
+}
+
+\begin{document}
+
+\subsection*{Coefficients binomiaux}
+
+\textbf{1.a}
+\vspacem
+
+\renewcommand{\theenumi}{(\roman{enumi})}%
+\begin{enumerate}
+  \item $\bbinom{10}{3} = 120$
+  \item $\bbinom{10}{4} = 210$
+  \item $\bbinom{10}{4} = 210$
+  \item $\bbinom{10}{5} = 252$
+\end{enumerate}
+
+\textbf{1.b}
+\vspacem
+
+\noindent Les 4 cas couvrent toutes les possibilités d'arranger un sous ensemble de $E$ de cardinal $5$
+
+% \renewcommand{\theenumi}{(\roman{enumi})}%
+% \begin{enumerate}
+%   \item $a$ et $b$ sont fixés 
+%   \item $a$ est fixé
+%   \item $b$ est fixé
+%   \item Rien n'est fixé
+% \end{enumerate}
+
+\noindent On a donc : 
+
+\vspacem
+$\bbinom{12}{5} = \bbinom{10}{3} + 2\bbinom{10}{4} + \bbinom{10}{5}$
+
+\vspacem
+\textbf{1.c}
+\vspacem
+
+On considère un ensemble $E_n$ à $n$ éléments.
+On veut dénombrer toutes les parties à $p$ éléments de cet ensemble.
+On sait que nous avons $\binom{n}{p}$ parties dans cet ensemble $E_n$.
+
+Il existe une autre manière de compter les parties :
+On considère deux éléments particuliers $a$ et $b$ appartenant à $E_n$
+On compte ensuite toute les parties de à $p$ éléments qui :
+
+\begin{itemize}
+  \item Contiennent $a$ et $b$
+  \item Contiennent $b$ mais pas $a$
+  \item Contiennent $a$ mais pas $b$
+  \item Contiennent ni $a$ ni $b$
+\end{itemize}
+
+\vspacem
+\textbf{1.d}
+\vspacem
+
+\noindent\begin{flalign}
+\bbinom{n}{p} &= \bbinom{n-1}{p-1} + \bbinom{n-1}{p}  &&\\
+&= \bbinom{n-2}{p-1} + \bbinom{n-2}{p-2} + \bbinom{n-1}{p} &&\\
+&= \bbinom{n-2}{p-1} + \bbinom{n-2}{p-2} +
+\bbinom{n-2}{p-1} + \bbinom{n-2}{p} &&\\
+&= \bbinom{n-2}{p-2} +  2 \bbinom{n-2}{p-1} + \bbinom{n-2}{p}
+\end{flalign}
+
+\textbf{2.}
+\vspacem
+
+Si $0 \leq q \leq p \leq n$ : 
+
+\noindent\begin{flalign}
+\bbinom{n}{q} \bbinom{n-q}{n-p} &= \bfrac{n!}{q! \, (n-q)!} \times \bfrac{(n-q)!}{(n-p)! \, (n-q-n+p)!} &&\\
+&= \bfrac{n!}{q! \, (n-p)! \, (p-q)!} &&\\
+&= \bfrac{n!}{p! \, (n-p)!} \times \bfrac{p!}{q! \, (p-q)!} &&\\
+&= \bbinom{n}{p} \bbinom{p}{q}
+\end{flalign}
+
+\vspace{2mm}
+\newpage
+
+\subsection*{Raisonnements}
+
+\textbf{1.a.i}
+
+\noindent On a $x = y = 0$
+
+\noindent Ainsi :
+
+$f(x)f(y) - f(xy) = x + y$
+
+$\Leftrightarrow f(0)f(0)-f(0\times 0) = 0 + 0$
+
+$\Leftrightarrow (f(0))^2 - f(0) = 0$
+
+$\Leftrightarrow (f(0))^2 = f(0)$
+
+\noindent Donc $f(0) = 1$ ou $f(0) = 0$
+
+\vspacem
+\textbf{1.a.ii}
+
+$f(x)f(y) - f(xy) = x + y$
+
+$\Leftrightarrow f(1)f(0)-f(1 \times 0) = 1 + 0$
+
+$\Leftrightarrow f(1)f(0)-f(0) = 1$
+
+$\Leftrightarrow f(0)(f(1) - 1) = 1$
+
+\noindent Un produit non nul a nécessairement deux facteurs non nul $f(0)$ et $(f(1) - 1)$
+
+\noindent Donc, d'après 1.a.(i), $f(0) = 1$, ainsi :
+
+$\Leftrightarrow f(1) - 1 = 1$
+
+$\Leftrightarrow f(1) = 2$
+
+\noindent Quand $x = 1$ et $y = 0$, $f(0) = 1$ et $f(1) = 2$
+
+\vspacem
+\textbf{1.a.iii}
+
+$f(x)f(y) - f(xy) = x + y$
+
+$\Leftrightarrow f(x)f(0)-f(0) = x$
+
+$\Leftrightarrow f(0)(f(x)-1) = x$
+
+\noindent D'après 1.a.(ii), $f(0) = 1$ :
+
+$\Leftrightarrow 1 \times (f(x)-1) = x$
+
+$\Leftrightarrow f(x) = x + 1$
+
+\vspacem
+\textbf{1.b}
+
+\noindent Avec $f(x) = x+1$, on a :
+
+$f(x)f(y) - f(xy) = x + y$
+
+$\Leftrightarrow (x+1)(y+1) - (xy + 1) = x + y$
+
+$\Leftrightarrow xy + x + y + 1 - xy - 1 = x + y$
+
+$\Leftrightarrow x + y = x + y$
+
+\newpage
+\vspacem
+\textbf{2.}
+
+\noindent On étudie le signe de l'expression $x^2 - x + 1 - |x-1|$ pour $x \geq 0$ et $x \leq 0$.
+
+\noindent On procède par disjonction de cas :
+
+\noindent \underline{Si $x \geq 1$}:
+
+Alors $x-1 \geq 0$, donc $|x-1| = x-1$
+
+$x^2-x+1-|x-1|$
+
+$\Leftrightarrow x^2 - x + 1 - x + 1$
+
+$\Leftrightarrow x^2 - 2x + 2$
+
+On calcule la dérivé pour avoir les variations de $x^2-2x+2$
+
+$(x^2 - 2x + 2)' = 2x - 2$
+
+$2x-2 \geq 0 \Leftrightarrow 2x \geq 2 \Leftrightarrow x \geq 1$
+
+Donc $\forall x \in [1, +\infty[$, $|x-1| \leq x^2-x+1$
+
+% $\Delta = (-2)^2 - 4\times1\times2 = 4 - 8 = -4$
+
+% Vu que $\Delta < 0$, la fonction n'a pas de racines. De plus, le coefficient de $x^2$ est positif. Donc 
+
+\noindent Si \underline{$x \leq 1$}:
+
+Alors $x -1 \leq 0$, donc $|x-1| = -(x-1) = -x+1$
+
+$x^2-x+1 - ( -x + 1)$
+
+$\Leftrightarrow x^2 - x + 1 + x - 1$
+
+$\Leftrightarrow x^2$
+
+On a $\forall x \geq 1, \, x^2 \geq 0$
+
+Donc $\forall x \in ]-\infty, \, 1]$, $|x-1| \leq x^2-x+1$
+
+
+% $|x-1| \leq x^2 - x + 1$
+% $\Leftrightarrow |x-1| \leq x^2 - (x+1)$
+
+% On étudie les variations de $|x-1|$ et de $x^2-x+1$
+
+% $(x^2-x+1)' = 2x - 1$
+
+% $2x-1 > 0 \Leftrightarrow 2x > 1 \Leftrightarrow x > \frac{1}{2}$
+
+% \begin{tikzpicture}
+%   \tkzTabInit[lgt=2.2, espcl=3]{
+%     $x$ /1.5,
+%     $2x-1$ /1.5,
+%     $x^2 - x + 1$ /1.5,
+%     $|x-1|$ /1.5
+%   }{
+%     $-\infty$,
+%     $0$,
+%     $\bfrac{1}{2}$,
+%     $1$,
+%     $+\infty$
+%   }%
+%   \tkzTabLine{,,-,,z,,+}
+%   \tkzTabVar{
+%     +/,
+%     R/,
+%     -/$\frac{3}{4}$,
+%     R/,
+%     +/,
+%   }
+%   \tkzTabIma{3}{1}{2}{$1$}
+%   \tkzTabVar{
+%     +/,
+%     R/,
+%     R/,
+%     -/$0$,
+%     +/
+%   }
+%   \tkzTabIma{4}{1}{2}{$1$}
+%   \tkzTabIma{4}{1}{3}{$\frac{1}{2}$}
+% %   \tkzTabVar{
+% %     -/,
+% %     -/,
+    
+% %     +/$\displaystyle\frac{2}{3}\sqrt{\displaystyle\frac{1}{3}}$,
+% %     -/
+% %   }
+% \end{tikzpicture}
+
+\noindent Par réunion, $\forall x \in \mathbb{R},\, |x-1| \leq x^2-x+1$
+
+\vspacem
+\textbf{3.}
+
+\noindent $n = a^2 + b^2$
+
+\noindent Pour chaque valeur possible de $a \mod 4$, $b \mod 4$, $a^2 \mod 4$, $b^2 \mod 4$ on regarde les valeurs possibles de $(a^2 + b^2) \mod 4$ grâce à un tableau.
+
+\renewcommand{\arraystretch}{1.5}
+\begin{center}
+\begin{tabular}{ |c | c | c | c | c | c | }
+ \hline
+ $a \mod 4$ & $b \mod 4$ & $a^2 \mod 4$ & $b^2 \mod 4$ & $(a^2 + b^2) \mod 4$ \\
+ \hline
+ 0 & 0 & 0 & 0 & 0 \\
+ 0 & 1 & 0 & 1 & 1 \\  
+ 0 & 2 & 0 & 0 & 0 \\  
+ 0 & 3 & 0 & 1 & 1 \\
+ \hline
+ 1 & 0 & 1 & 0 & 1 \\
+ 1 & 1 & 1 & 1 & 2 \\
+ 1 & 2 & 1 & 0 & 1 \\
+ 1 & 3 & 1 & 1 & 2 \\
+ \hline
+ 2 & 0 & 0 & 0 & 0 \\
+ 2 & 1 & 0 & 1 & 1 \\
+ 2 & 2 & 0 & 0 & 0 \\
+ 2 & 3 & 0 & 1 & 1 \\
+ \hline
+ 3 & 0 & 1 & 0 & 1 \\
+ 3 & 1 & 1 & 1 & 2 \\
+ 3 & 2 & 1 & 0 & 1 \\
+ 3 & 3 & 1 & 1 & 2 \\
+ \hline
+\end{tabular}
+\end{center}
+
+\noindent D'après ce tableau, il n'y a pas de reste de la division de $n$ par $4$ valant 3. Ainsi la proposition est vraie.
+
+\end{document}
