@@ -1,0 +1,151 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{tikz,amsmath}
+\usepackage{tikz,tkz-tab,amsmath}
+\usetikzlibrary{trees}
+\usetikzlibrary{arrows}
+\usepackage{enumerate}
+
+%\setlength{\TPHorizModule}{1mm}
+%\setlength{\TPVertModule}{1mm}
+  
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=blue,
+}
+\urlstyle{same}
+
+\parskip 1ex
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ left=20mm,
+ top=20mm,
+ bottom=20mm,
+ right=20mm
+ }
+\usepackage{multicol}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Matthieu Bessat}
+\rhead{DM 4}
+\rfoot{Page \thepage}
+
+\makeatletter
+\def\@seccntformat#1{%
+  \expandafter\ifx\csname c@#1\endcsname\c@section\else
+  \csname the#1\endcsname\quad
+  \fi}
+\makeatother
+
+\newcommand{\vspacem}{\vspace{2mm}}
+\newcommand{\bfrac}[2]{\displaystyle\frac{#1}{#2}}
+\newcommand{\bbinom}[2]{\displaystyle\binom{#1}{#2}}
+
+\newif\ifquoteopen
+\catcode`\"=\active % lets you define `"` as a macro
+\DeclareRobustCommand*{"}{%
+   \ifquoteopen
+     \quoteopenfalse ''%
+   \else
+     \quoteopentrue ``%
+   \fi
+}
+
+\begin{document}
+
+\subsection*{Étude d'une équation d'ordre 2}
+
+\textbf{1.a}
+
+\noindent La forme normalisé de l'équation $(\mathcal{E})$ est :
+
+$\mathcal{(E)}: y'+\bfrac{1}{t}y=-\bfrac{\sin(t)}{t}$
+
+\noindent Sous cette forme on constate que les intervalles d'études sont $\mathbb{R}^*_-$ et $\mathbb{R}^*_+$.
+
+\textbf{1.b}
+
+\noindent L'équation homogène de $(\mathcal{E})$ est $(\mathcal{E}_h): ty'+y=0$
+
+\noindent Les solutions à l'équation homogènes sont :
+
+$S_{(\mathcal{E}_h)} = \{ t \mapsto Ce^{-A(t)}, c \in \mathbb{R} \}$
+
+\noindent Avec $A(t)$ une primitive de la fonction $\bfrac{b(t}{a(t)} = \bfrac{1}{t}$
+
+\noindent Ainsi $A(t) = \ln(t)$, donc :
+
+$S_{(\mathcal{E}_h)} = \{ t \mapsto Ce^{-ln(t)}, C \in \mathbb{R} \}$
+
+$S_{(\mathcal{E}_h)} = \{ t \mapsto C\bfrac{1}{t}, C \in \mathbb{R} \}$
+
+\textbf{1.c}
+
+\noindent Recherche d'une solution particulière en utilisant la méthode de variation de la constante.
+
+\noindent Sous la forme :  $y: t \mapsto k(t)\bfrac{1}{t}$
+
+$y': t \mapsto k'(t)\bfrac{1}{t} + \Big(\bfrac{1}{t}\Big)'k(t)$
+
+$y': t \mapsto \bfrac{k'(t)}{t} - \bfrac{k(t)}{t^2}$
+
+$y': t \mapsto \bfrac{tk'(t)-k(t)}{t^2}$
+
+\noindent En réinjectant dans la forme normalisé de $(\mathcal{E})$, on obtient :
+
+$ty'+y = -\sin(t)$
+
+$\Leftrightarrow t\Big(\bfrac{tk'(t)-k(t)}{t^2}\Big) + k(t)\bfrac{1}{t} = -\sin(t)$
+
+$\Leftrightarrow \bfrac{tk'(t) - k(t)}{t} + k(t)\bfrac{1}{t} = -\sin(t)$
+
+$\Leftrightarrow \bfrac{tk'(t)}{t} + k(t)\bfrac{1}{t} = -\sin(t)$
+
+$\Leftrightarrow k'(t) = -sin't)$
+
+\noindent Ainsi $k(t) = \cos(t)$
+
+\noindent Donc une solution particulière est : $y \mapsto \cos(t) \bfrac{1}{t}$
+
+\textbf{1.c}
+
+\noindent Solutions générales = Solution particulière + Solutions homogènes
+
+\noindent Donc la forme générale des solutions de $(\mathcal{E})$
+
+$S_{(\mathcal{E})} = \big\{ t \mapsto \cos(t)\bfrac{1}{t} + \alpha\bfrac{1}{t}, \alpha \in \mathbb{R} \big\}$
+
+$S_{(\mathcal{E})} = \big\{ t \mapsto \bfrac{\cos(t) + \alpha}{t}, \alpha \in \mathbb{R} \big\}$
+
+\textbf{1.e}
+
+\noindent On a ainsi résolu $(\mathcal{E})$ sur $\mathbb{R}^*_-$ et $\mathbb{R}^*_+$ réunies c'est à dire sur $\mathbb{R}^*$
+
+% sqcup
+
+Soit $y_1$ et $y_2$ deux fonctions solutions de $(\mathcal{E})$ respectivement sur les intervalles $\mathbb{R}^*_-$ et $\mathbb{R}^*_+$
+
+Sur $\mathbb{R}^*_-$, on a :
+
+$y_1(t) = \bfrac{A_1 + \cos(t)}{t}$
+
+$y_1(t) = \bfrac{A_1 + 2\sin(\frac{t}{2})^2 + 1}{t}$
+
+$y_1(t) = \bfrac{A_1 + 1}{t} + \bfrac{2 \sin(\frac{t}{2})^2}{t}$
+
+Pour que $y_1$ admette une limite finie en $t = 0$, il faut que $A_1 = -1$
+
+\end{document}
+
