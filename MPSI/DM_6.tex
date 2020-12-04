@@ -1,0 +1,649 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{tikz,amsmath}
+\usepackage{tikz,tkz-tab,amsmath}
+\usetikzlibrary{trees}
+\usetikzlibrary{arrows}
+\usepackage{cancel}
+\usepackage{xfrac}  
+
+\usepackage{enumerate}
+
+%\setlength{\TPHorizModule}{1mm}
+%\setlength{\TPVertModule}{1mm}
+  
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=blue,
+}
+\urlstyle{same}
+
+\parskip 1ex
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ left=20mm,
+ top=20mm,
+ bottom=20mm,
+ right=20mm
+ }
+\usepackage{multicol}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Matthieu Bessat}
+\rhead{DM 6 - 23 nov. 2020}
+\rfoot{Page \thepage}
+
+\makeatletter
+\def\@seccntformat#1{%
+  \expandafter\ifx\csname c@#1\endcsname\c@section\else
+  \csname the#1\endcsname\quad
+  \fi}
+\makeatother
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newcommand{\vspacem}{\vspace{3mm}}
+\newcommand{\bfrac}[2]{\displaystyle\frac{#1}{#2}}
+\newcommand{\bbinom}[2]{\displaystyle\binom{#1}{#2}}
+
+\newcommand\aug{\fboxsep=-\fboxrule\!\!\!\fbox{\strut}\!\!\!}
+
+\newif\ifquoteopen
+\catcode`\"=\active % lets you define `"` as a macro
+\DeclareRobustCommand*{"}{%
+   \ifquoteopen
+     \quoteopenfalse ''%
+   \else
+     \quoteopentrue ``%
+   \fi
+}
+
+\begin{document}
+
+\section*{DM 6}
+
+\textbf{1.a}
+
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+\setlength{\abovedisplayshortskip}{0pt}
+\setlength{\belowdisplayshortskip}{0pt}
+\begin{flalign*}
+A^2 &= 
+\begin{pmatrix}
+2 & 1  & -3 \\
+1 & -2 & -1 \\
+3 & 1  & -4
+\end{pmatrix}
+\begin{pmatrix}
+2 & 1  & -3 \\
+1 & -2 & -1 \\
+3 & 1  & -4
+\end{pmatrix} =
+\begin{pmatrix} 
+-4 & -3 & 5 \\
+-3 &  4 & 3 \\
+-5 & -3 & 6
+\end{pmatrix}
+&&\\
+&
+\end{flalign*}
+
+\vspace{-6px}
+
+\noindent Détail du coefficient $a^2_{1,1}$ : $a^2_{1,1} = 2\times2 + 1\times1 + (-3)\times3 = 4+1-9 = -4$
+
+\noindent On a donc : 
+
+\vspace{-10px}
+
+\[
+\boxed{
+    A^2 = 
+    \begin{pmatrix} 
+    -4 & -3 & 5 \\
+    -3 &  4 & 3 \\
+    -5 & -3 & 6
+    \end{pmatrix}
+}
+\]
+
+\vspacem
+\vspacem
+\textbf{1.b}
+
+\noindent On utilise la méthode du formalisme matriciel avec le pivot de Gauss :
+
+\begin{flalign*}
+&\begin{pmatrix}[ccc|ccc]
+\boxed{1} & -1 & -1 & 1 & 0 & 0 \\
+0 & 1 & 1 & 0 & 1 & 0 \\
+1 & -2 & -1 & 0 & 0 & 1 \\
+\end{pmatrix}
+\quad
+\begin{matrix*}[l]
+L_3 \leftarrow L_3 - L_1
+\end{matrix*}
+&&\\
+& \text{On trouve 4 pivots donc $P$ est inversible.}
+&&\\
+&\begin{pmatrix}[ccc|ccc]
+1 & -1  & -1      & 1  & 0 & 0 \\
+0 & \boxed{1} & 1 & 0  & 1 & 0 \\
+0 & -1 & 0        & -1 & 0 & 1 \\
+\end{pmatrix}
+\quad
+\begin{matrix*}[l]
+L_1 \leftarrow L_1 + L_2 \\
+L_3 \leftarrow L_3 + L_2
+\end{matrix*}
+&&\\
+&\begin{pmatrix}[ccc|ccc]
+1 & 0 & 0         & 1 & 1 & 0  \\
+0 & 1 & 1         & 0 & 1 & 0  \\
+0 & 0 & \boxed{1} & -1 & 1 & 1 \\
+\end{pmatrix}
+\quad
+\begin{matrix*}[l]
+L_2 \leftarrow L_2 - L_3
+\end{matrix*}
+&&\\
+&\begin{pmatrix}[ccc|ccc]
+1 & 0 & 0 & 1 & 1 & 0  \\
+0 & 1 & 0 & 1 & 0 & -1  \\
+0 & 0 & 1 & -1 & 1 & 1 \\
+\end{pmatrix}
+\end{flalign*}
+
+\vspace{5mm}
+
+\noindent Ainsi :
+
+\vspace{-15mm}
+
+\[
+\boxed{
+    P^{-1}=\begin{pmatrix}
+    1 & 1 & 0  \\
+    1 & 0 & -1  \\
+    -1 & 1 & 1 \\
+    \end{pmatrix}
+}
+\]
+
+\vspacem
+\vspacem
+\vspacem
+
+\textbf{1.c}
+\vspace{3mm}
+\begin{flalign*}
+T &= P^{-1}AP = \begin{pmatrix}
+1 & 1 & 0  \\
+1 & 0 & -1  \\
+-1 & 1 & 1 \\
+\end{pmatrix}\times\begin{pmatrix}
+2 & 1 & -3  \\
+1 & -2 & -1  \\
+3 & 1 & -4 \\
+\end{pmatrix}\times P
+&&\\
+T &= \begin{pmatrix}
+3  & -1 & -4  \\
+-1 &  0 & 1  \\
+2  & -2 & -2 \\
+\end{pmatrix}\times P
+&&\\
+T &= \begin{pmatrix}
+3  & -1 & -4  \\
+-1 &  0 & 1  \\
+2  & -2 & -2 \\
+\end{pmatrix}\times \begin{pmatrix}
+1  & -1 & -1  \\
+0 &  1 & 1  \\
+1  & -2 & -1 \\
+\end{pmatrix}
+&&\\
+T &= \begin{pmatrix}
+-1 & 4 & 0  \\
+0 & -1 & 0  \\
+0  & 0 & -2 \\
+\end{pmatrix}
+\end{flalign*}
+
+\vspace{5mm}
+
+\noindent En conséquence :
+
+\vspace{-15mm}
+
+\[
+\boxed{
+T = \begin{pmatrix}
+-1 & 4 & 0  \\
+0 & -1 & 0  \\
+0  & 0 & -2 \\
+\end{pmatrix}
+}
+\]
+
+\newpage
+\textbf{1.d}
+\vspace{5mm}
+\begin{flalign*}
+T^2 &= T \times T = \begin{pmatrix}
+-1 & 4 & 0  \\
+0 & -1 & 0  \\
+0  & 0 & -2 \\
+\end{pmatrix}\times\begin{pmatrix}
+-1 & 4 & 0  \\
+0 & -1 & 0  \\
+0  & 0 & -2 \\
+\end{pmatrix} = \begin{pmatrix}
+1 & -8 & 0  \\
+0 &  1 & 0  \\
+0 & 0 & 4 \\
+\end{pmatrix}
+&&\\
+T^3 &= T^2 \times T = \begin{pmatrix}
+1 & -8 & 0  \\
+0 &  1 & 0  \\
+0 & 0 & 4 \\
+\end{pmatrix} \times \begin{pmatrix}
+-1 & 4 & 0  \\
+0 & -1 & 0  \\
+0  & 0 & -2 \\
+\end{pmatrix} = \begin{pmatrix}
+-1 & 12 & 0  \\
+0 & -1 & 0  \\
+0  & 0 & -8 \\
+\end{pmatrix}
+\end{flalign*}
+
+\vspacem
+\textbf{1.e}
+
+\noindent On conjecture l'expression de $T^n$ :
+
+\begin{equation*}
+\forall n \in \mathbb{N}, \quad
+T^n = (-1)^n 
+\begin{pmatrix}
+1 & -4n & 0 \\
+0 & 1   & 0 \\
+0 & 0   & 2^n
+\end{pmatrix}
+\end{equation*}
+
+\noindent On utilise le raisonnement par récurrence :
+
+\noindent \textbf{\underline{Initialisation :}} pour $n = 0$
+
+$T^0 = (-1)^0\begin{pmatrix}
+1 & -4\times0 & 0 \\
+0 & 1   & 0 \\
+0 & 0   & 2^0
+\end{pmatrix} = \begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix}$
+
+\noindent Donc la propriété est vrai au rang $n = 0$
+
+\noindent \textbf{\underline{Hérédité :}}
+On suppose la propriété vrai à un certain rang $n$. Démontrons la propriété vrai au rang $n+1$ :
+
+\begin{flalign*}
+T^n &= (-1)^n\begin{pmatrix}
+1 & -4n & 0 \\
+0 & 1   & 0 \\
+0 & 0   & 2^n
+\end{pmatrix}
+&&\\
+T^n \times T &= \Bigg((-1)^n\begin{pmatrix}
+1 & -4n & 0 \\
+0 & 1   & 0 \\
+0 & 0   & 2^n
+\end{pmatrix}\Bigg) \times T
+&&\\
+T^n \times T &= (-1)^n\begin{pmatrix}
+1 & -4n & 0 \\
+0 & 1   & 0 \\
+0 & 0   & 2^n
+\end{pmatrix} \times \begin{pmatrix}
+-1 & 4 & 0  \\
+0 & -1 & 0  \\
+0  & 0 & -2 \\
+\end{pmatrix}
+&&\\
+T^n \times T &= (-1)^n \begin{pmatrix}
+-1 & 4+4n & 0  \\
+0 & -1 & 0  \\
+0 & 0 & -2^{n+1} \\
+\end{pmatrix}
+&&\\
+T^n \times T &= (-1)(-1)^n \begin{pmatrix}
+1 & -4(n+1) & 0  \\
+0 & -1 & 0  \\
+0 & 0 & 2^{n+1} \\
+\end{pmatrix}
+&&\\
+T^{n+1} \times T &= (-1)^{n+1} \begin{pmatrix}
+1 & -4(n+1) & 0  \\
+0 & -1 & 0  \\
+0 & 0 & 2^{n+1} \\
+\end{pmatrix}
+\end{flalign*}
+\vspace{3mm}
+
+\noindent On retrouve bien la forme avec $n+1$ au lieu de $n$.
+
+\noindent Donc la propriété est vrai pour le rang $n+1$.
+
+\vspace{5mm}
+
+\noindent \textbf{\underline{Conclusion :}}
+
+\vspace{-12mm}
+
+\begin{equation*}
+\boxed{
+\forall n \in \mathbb{N}, \quad
+T^n = (-1)^n 
+\begin{pmatrix}
+1 & -4n & 0 \\
+0 & 1   & 0 \\
+0 & 0   & 2^n
+\end{pmatrix}
+}
+\end{equation*}
+
+\newpage
+
+\textbf{1.f}
+
+\noindent D'après la question 1.c on a :
+
+\vspace{-4mm}
+
+\begin{flalign*}
+\quad & T = P^{-1}AP &&\\
+\text{Ainsi :} \quad & T^n = (P^{-1}AP)^n  &&\\
+               \quad & T^n = (P^{-1}A\cancel{P})\times(\cancel{P^{-1}}A\cancel{P})\times \cdots \times(\cancel{P^{-1}}A\cancel{P})\times(\cancel{P^{-1}}AP)  &&\\
+               \quad & T^n = P^{-1}A^nP  &&\\
+\text{D'où :} \quad & A^n = PT^nP^{-1}  &&\\
+\quad & A^n =
+\begin{pmatrix}
+1 & -1 & -1  \\
+0 & 1 & 1  \\
+1 & -2 & -1 \\
+\end{pmatrix}\times
+(-1)^n 
+\begin{pmatrix}
+1 & -4n & 0 \\
+0 & 1   & 0 \\
+0 & 0   & 2^n
+\end{pmatrix}
+\times P^{-1}
+&&\\
+\quad & A^n =
+\begin{pmatrix}
+(-1)^n & -4(-1)^nn-(-1)^n & -(-1)^n\cdot2^n  \\
+0 & (-1)^n & (-1)^n\cdot2^n  \\
+(-1)^n & -4(-1)^nn-2(-1)^n & -(-1)^n\cdot2^n \\
+\end{pmatrix}\times
+\begin{pmatrix}
+1 & 1 & 0 \\
+1 & 0 & -1  \\
+-1 & 1 & 1 \\
+\end{pmatrix}
+&&\\
+\quad & A^n =
+\begin{pmatrix}
+-4(-1)^nn+(-1)^n\cdot2^n & (-1)^n-(-1)^n\cdot2^n & 4(-1)^nn+(-1)^n-(-1)^n\cdot2^n \\   
+(-1)^n-(-1)^n\cdot2^n & (-1)^n\cdot 2^n & (-1)^n\cdot2^n-(-1)^n \\
+-4(-1)^nn-(-1)^n+(-1)^n\cdot2^n & (-1)^n-(-1)^n\cdot2^n & 4(-1)^nn + 2(-1)^n - (-1)^n\cdot2^n \\
+\end{pmatrix}
+&&\\
+\end{flalign*}
+
+%
+%\begin{pmatrix}
+%1 & 1 & 0  \\
+%1 & 0 & -1  \\
+%-1 & 1 & 1 \\
+%\end{pmatrix}
+
+\vspace{-2mm}
+
+\vspace{5mm}
+
+\noindent On a donc : \quad
+
+\vspace{-14mm}
+
+\begin{equation*}
+\quad
+\boxed{
+\forall n \in \mathbb{N}, \quad
+A^n = 
+\begin{pmatrix}
+4n+(-2)^n & (-1)^n - (-2)^n & -4n+(-1)^n-(-2)^n \\
+(-1)^n-(-2)^n & (-2)^n   & (-1)^n+(-2)^n \\
+-(-1)^n+4n+(-2)^n & (-1)^n-(-2)^n   & -4n+2(-1)^n-(-2)^n
+\end{pmatrix}
+}
+\end{equation*}
+
+\textbf{1.g}
+
+\noindent Pour savoir si A est inversible, on utilise la méthode du formalisme matriciel avec le pivot de Gauss :
+
+\begin{flalign*}
+&\begin{pmatrix}[ccc|ccc]
+\boxed{2} & 1 & -3 & 1 & 0 & 0 \\
+1 & -2 & -1 & 0 & 1 & 0 \\
+3 & 1 & -4 & 0 & 0 & 1 \\
+\end{pmatrix}
+\quad
+\begin{matrix*}[l]
+\end{matrix*}
+&&\\
+& \text{On trouve 3 pivots et aucune équations de compatibilités donc $A$ est inversible.}
+&&\\
+\end{flalign*}
+
+\noindent On suit le même algorithme qu'a la question 1.b et on obtient $A^{-1}$ :
+
+\[
+\boxed{
+    A^{-1} = 
+    \begin{pmatrix} 
+    -\sfrac{9}{2} & -\sfrac{1}{2} & \sfrac{7}{2} \\
+    -\sfrac{1}{2} & -\sfrac{1}{2} & \sfrac{1}{2} \\
+    -\sfrac{7}{2} & -\sfrac{1}{2} & \sfrac{5}{2}
+    \end{pmatrix}
+}
+\]
+
+\vspacem
+\textbf{2.a}
+
+\noindent On note $a$, $b$, $c$ les éléments du couple représentant l'image de l'application $f$, de la même manière note $e$, $f$ et $g$, les éléments du couple représentant l'image de l'application $g$
+
+\begin{flalign*}
+&\left\{\begin{matrix*}[l]
+    d: 2a + b - 3c\\
+    e: a - 2b - c \\
+    f: 3a + b- 4c \\
+\end{matrix*}\right.
+&&\\
+\Leftrightarrow &\left\{\begin{matrix*}[l]
+    d: 2(2x+y-3z) + (x-2y-z) - 3(3x+y-4z)\\
+    e: (2x+y-3z)-2(x-2y-z)-(3x+y-4z) \\
+    f: 3(2x+y-3z) + (x-2y-z)- 4(3x+y-4z) \\
+\end{matrix*}\right.
+&&\\
+\Leftrightarrow &\left\{\begin{matrix*}[l]
+    d: 4x+2y-6z+x-2y-z-9x-3y+12z \\
+    e: 2x+y-3z-2x+4y+2z-3x-y+4z \\
+    f: 6x+3y-9z+x-2y-z-12x-4y+16z \\
+\end{matrix*}\right.
+\end{flalign*}
+
+\vspace{5px}
+
+\noindent Ainsi, on trouve l'expression de $g$:
+
+\[
+\boxed{
+    g : \medspace\left\{\begin{flalign*}
+        \mathbb{R}^3 &\longrightarrow \mathbb{R}^3&&\\
+        (x, y, z) &\longmapsto (-4x-3y+5y, -3x+4y+3z, -5x-3y+6z)
+    \end{flalign*}\right.
+}
+\]
+
+\textbf{2.b}
+
+\noindent On trouve :
+
+\vspace{-5mm}
+
+\begin{flalign*}
+\forall (x,y,z),(d,e,f) \in \mathbb{R}^3, \quad\;  g(x, y, z) = (d, e, f) \quad &\Leftrightarrow \quad A\begin{pmatrix}a \\ b \\ c\end{pmatrix} = \begin{pmatrix}d \\ e \\ f\end{pmatrix}
+&&\\
+&\Leftrightarrow \quad A\times A\begin{pmatrix}x \\ y \\ z\end{pmatrix} = \begin{pmatrix}d \\ e \\ f\end{pmatrix}
+&&\\
+&\Leftrightarrow \quad A^2\begin{pmatrix}x \\ y \\ z\end{pmatrix} = \begin{pmatrix}d \\ e \\ f\end{pmatrix}
+&&\\
+\end{flalign*}
+
+\vspace{-5mm}
+
+\noindent La question 1.a nous donne : $A^2 = 
+\begin{pmatrix} 
+-4 & -3 & 5 \\
+-3 &  4 & 3 \\
+-5 & -3 & 6
+\end{pmatrix}$
+
+\noindent D'où :
+
+\begin{flalign*}
+\begin{pmatrix} 
+d \\ e \\ f
+\end{pmatrix} =
+A^2\times\begin{pmatrix} 
+x \\ y \\ z
+\end{pmatrix} &= 
+\begin{pmatrix} 
+-4 & -3 & 5 \\
+-3 &  4 & 3 \\
+-5 & -3 & 6
+\end{pmatrix}
+\begin{pmatrix} 
+x \\ y \\ z
+\end{pmatrix} = \begin{pmatrix} 
+-4x -3y + 5y \\
+-3x +  4y + 3z \\
+-5x -3y + 6z
+\end{pmatrix}
+&&\\
+\end{flalign*}
+
+\textbf{2.c}
+
+\noindent $f$ est bijective car A est inversible. (d'après la question 1.g)
+
+\begin{flalign*}
+A\begin{pmatrix}x \\ y \\ z\end{pmatrix} &= \begin{pmatrix}a \\ b \\ c\end{pmatrix}
+\quad\Leftrightarrow\quad \cancel{A^{-1}A}\begin{pmatrix}x \\ y \\ z\end{pmatrix} = A^{-1}\begin{pmatrix}a \\ b \\ c\end{pmatrix}
+\quad\Leftrightarrow\quad \begin{pmatrix}x \\ y \\ z\end{pmatrix} = A^{-1}\begin{pmatrix}a \\ b \\ c\end{pmatrix}
+\end{flalign*}
+
+\vspace{3px}
+
+\noindent \begin{flalign*}
+\text{Ainsi :} \quad \forall (a,b,c),(x,y,z) \in \mathbb{R}^3, \quad\;  f^{-1}(a, b, c) = (x, y, z) \quad &\Leftrightarrow \quad A^{-1}\begin{pmatrix}a \\ b \\ c\end{pmatrix} = \begin{pmatrix}x \\ y \\ c\end{pmatrix}
+&&\\
+\end{flalign*}
+
+\vspace{-20px}
+
+\noindent Sachant, $A^{-1}$ :
+$A^{-1} = 
+\begin{pmatrix} 
+-\sfrac{9}{2} & -\sfrac{1}{2} & \sfrac{7}{2} \\
+-\sfrac{1}{2} & -\sfrac{1}{2} & \sfrac{1}{2} \\
+-\sfrac{7}{2} & -\sfrac{1}{2} & \sfrac{5}{2}
+\end{pmatrix}$
+
+\vspace{10mm}
+
+\noindent On a donc :
+
+\vspace{-15mm}
+
+\[
+\boxed{
+    f^{-1} : \medspace\left\{\begin{flalign*}
+        \mathbb{R}^3 &\longrightarrow \mathbb{R}^3&&\\
+        (a, b, c) &\longmapsto \Big(\sfrac{1}{2}\big[-9a-b+7c\big], \sfrac{1}{2}\big[-a-b+c\big], \sfrac{1}{2}\big[-7a-b+5c\big]\Big)
+    \end{flalign*}\right.
+}
+\]
+
+\vspace{5mm}
+
+\textbf{2.d}
+
+\vspace{-5mm}
+\begin{flalign*}
+f^n(0,1,0) = (u, v, t) \quad &\Leftrightarrow \quad A^n\times\begin{pmatrix}0 \\ 1 \\ 0\end{pmatrix} = \begin{pmatrix}u \\ v \\ t\end{pmatrix}
+&&\\ 
+&\Leftrightarrow \quad \begin{pmatrix}u \\ v \\ t\end{pmatrix} = \begin{pmatrix}
+4n+(-2)^n & (-1)^n - (-2)^n & -4n+(-1)^n-(-2)^n \\
+(-1)^n-(-2)^n & (-2)^n   & (-1)^n+(-2)^n \\
+-(-1)^n+4n+(-2)^n & (-1)^n-(-2)^n   & -4n+2(-1)^n-(-2)^n
+\end{pmatrix}\times\begin{pmatrix}0 \\ 1 \\ 0\end{pmatrix}
+&&\\ 
+&\Leftrightarrow \quad \begin{pmatrix}u \\ v \\ t\end{pmatrix} = \begin{pmatrix}
+(-1)^n-(-2)^n \\
+(-2)^n \\
+(-1)^n-(-2)^n
+\end{pmatrix}
+\end{flalign*}
+
+\vspace{5mm}
+
+\noindent En conséquence :
+
+\vspace{-10mm}
+
+\[
+\boxed{
+\forall n \in \mathbb{Z} \quad f^n(0, 1, 0) = ((-1)^n-(-2)^n, (-2)^n, (-1)^n-(-2)^n)
+}
+\]
+
+
+\end{document}
