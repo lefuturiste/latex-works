@@ -1,0 +1,392 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{tikz,amsmath}
+\usepackage{tikz,tkz-tab,amsmath}
+\usetikzlibrary{trees}
+\usetikzlibrary{arrows}
+\usepackage{cancel}
+\usepackage{xfrac}  
+\usepackage{stmaryrd}
+
+\usepackage{minted}
+\usepackage{lmodern}
+
+\usepackage{enumerate}
+
+%\setlength{\TPHorizModule}{1mm}
+%\setlength{\TPVertModule}{1mm}
+  
+% to disable automat²ic indentation on new paragraphs
+%\setlength{\parindent}{0pt}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=blue,
+}
+\urlstyle{same}
+
+\parskip 1ex
+
+\usepackage{pythonhighlight}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ left=20mm,
+ top=20mm,
+ bottom=20mm,
+ right=20mm
+ }
+\usepackage{multicol}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Matthieu Bessat}
+\rhead{DM 15 - 1 mars. 2021}
+\rfoot{Page \thepage}
+
+\makeatletter
+\def\@seccntformat#1{%
+  \expandafter\ifx\csname c@#1\endcsname\c@section\else
+  \csname the#1\endcsname\quad
+  \fi}
+\makeatother
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newcommand{\vspacem}{\vspace{3mm}}
+\newcommand{\bfrac}[2]{\displaystyle\frac{#1}{#2}}
+\newcommand{\blim}[1]{\displaystyle\lim_{#1}}
+\newcommand{\bbinom}[2]{\displaystyle\binom{#1}{#2}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Imag}{\text{Im}}
+\newcommand{\cotan}{\text{cotan}}
+
+\newcommand\aug{\fboxsep=-\fboxrule\!\!\!\fbox{\strut}\!\!\!}
+% just deleted a macro
+%
+%
+%
+
+\begin{document}
+\enskip
+
+\vspace{-10px}
+\begin{center}
+\fontsize{20pt}{20pt}\selectfont
+\textbf{DM 15}
+\end{center}
+\fontsize{11pt}{11pt}\selectfont
+
+\vspace{15px}
+
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+\setlength{\abovedisplayshortskip}{0pt}
+\setlength{\belowdisplayshortskip}{0pt}
+
+\textbf{1.a.}
+
+\vspace{2px}
+
+\begin{flalign*}
+\sin((2n+1)t) &= \Imag(e^{i(2n+1)t} = \Imag\Big((e^{it})^{2n+1}\Big) = \Imag\Big((\cos t + i\sin t)^{2n+1}\Big) &&\\
+&= \Imag\Bigg(\sum_{j=0}^{2n+1} \binom{2n+1}{j} \cos^{2n+1-j}(t) (i \sin(t))^j \Bigg)  \quad\text{(D'après le binôme de Newton)} &&\\
+&= \sum_{j=0}^{2n+1} \binom{2n+1}{j} \cos^{2n+1-j}(t) \,\Imag(i^j) \sin^j(t) &&\\
+\end{flalign*}
+
+\vspace{-5px}
+\noindent On effectue alors un changement d'indice, en posant $j=2k+1$ on obtient :
+
+\[
+\sin((2n+1)t) = \sum_{k=0}^{n} \binom{2n+1}{2k+1} \cos^{2n+1-(2k+1)}(t) \,\Imag(i^{2k+1}) \sin^{2k+1}(t)
+\]
+
+\vspace{7px}
+
+\noindent Or on a, \;\; $\Imag(i^{2k+1}) = \Imag(i^{2k}\times i) = i^{2k} = (i^2)^k = (-1)^k$ \;\; ce qui donne :
+
+\[
+\sin((2n+1)t) = \sum_{k=0}^{n} \binom{2n+1}{2k+1} \cos^{2(n-k)}(t) \,(-1)^k \sin^{2k+1}(t)
+\]
+
+\vspace{20px}
+
+\noindent Ainsi :
+
+\vspace{-37px}
+
+\[\boxed{\; \forall n \in \mathbb{N} \text{ et } t \in \mathbb{R}, \quad \sin((2n+1)t) = \sum_{k = 0}^n{\binom{2n+1}{2k+1}(-1)^k\sin^{2k+1}(t) \cos^{2(n-k)}(t)} \;} \]
+
+\vspace{10px}
+
+\textbf{1.b.}
+
+\begin{flalign*}
+\bfrac{\sin((2n+1)t)}{\sin^{2n+1}(t)} &= \sum_{k=0}^{n} \binom{2n+1}{2k+1} \, (-1)^k \, \bfrac{\sin^{2k+1}(t)}{\sin^{2n+1}(t)} \cos^{2(n-k)}(t) &&\\
+&= \sum_{k=0}^{n} \binom{2n+1}{2k+1} \, (-1)^k   \sin^{2(k-n)}(t) \cos^{2(n-k)}(t) &&\\
+&= \sum_{k=0}^{n} \binom{2n+1}{2k+1} \, (-1)^k  \bigg(\frac{\cos t}{ \sin
+t}\bigg)^{2(n-k)} &&\\
+&= \sum_{k=0}^{n} \binom{2n+1}{2k+1} \, (-1)^k  (\cotan^2(t))^{n-k} &&\\
+\end{flalign*}
+
+\vspace{8px}
+
+\noindent Ainsi :
+
+\vspace{-28px}
+
+\[\boxed{\; \forall n \in \mathbb{N}, \quad \exists \; P_n \in \R[X] \text{ vérifiant } \bigstar \;} \]
+
+\vspace{10px}
+
+\textbf{1.c.}
+
+\vspace{5px}
+
+\noindent \underline{Raisonnons par l'absurde :}
+
+\noindent Supposons qu'il existe deux polynômes distincts $P_n$ et $P$ vérifiant $\bigstar$ 
+
+\noindent Vu que la fonction $\cotan$ réalise une bijection de $]0, \tfrac{pi}{2}[$ sur $\R^*_+$.
+
+\noindent On a donc $P - P_n = 0$, le polynôme $P - P_n$ possède une infinité de racine, c'est donc le polynôme nul.
+
+\noindent Ainsi $P = P_n$ ce qui est contradictoire. On déduit que : \boxed{ \forall n \in \N, \;\; \text{$P_n$ est l'unique polynôme vérifiant $\bigstar$}}
+
+\vspace{10px}
+
+\textbf{1.d.}
+
+\vspace{5px}
+
+\noindent On a $P_n(\cotan^2(t)) = \bfrac{\sin((2n+1)t)}{\sin^{2n+1}(t)}$
+
+\noindent Ainsi $P_n$ s'annule quand $\sin((2n+1)t) = 0$
+
+\noindent Donc $P_n$ s'annule quand $t$ vérifie $(2n+1)t = k \pi$ avec $k \in \llbracket 1,n \rrbracket$. On a donc $t = \bfrac{k\pi}{2n+1}$
+
+\vspace{20px}
+
+\noindent Ainsi :
+
+\vspace{-37px}
+
+\[\boxed{\; \text{Les racines de $P_n$ sont pour $k \in \llbracket 1,n \rrbracket, \quad x_k = \cotan^2\Bigg(\bfrac{k\pi}{2n+1}\Bigg)$} \;} \]
+
+\vspace{10px}
+
+\textbf{2.a.} Procédons par récurrence.
+
+\vspace{5px}
+
+\noindent \textbf{\underline{Initialisation} :} \, Pour $n = 1$,
+
+\noindent On a $Q_1$, polynôme de degré 1 qui s'écrit : $Q_1 = a_1(X-x_1) = a_1 X + a_0$
+
+\noindent $Q_1$ possède une seule racine $x_1$, et on a :
+
+$a_1(X-x_1) = a_1 X + a_0 \Leftrightarrow a_1X-a_1x_1 = a_1 X + a_0 \Leftrightarrow -a_1 x_1 = a_0 \Leftrightarrow x_1 = -\bfrac{a_0}{a_1}$
+
+\noindent Ainsi la propriété est vérifié au rang $n = 1$.
+
+\vspace{5px}
+
+\noindent \textbf{\underline{Hérédité} :} \, On suppose la propriété vrai pour un certain rang $n \in \N^*$. Montrons vrai la propriété au rang $n+1$.
+
+$T = \displaystyle\sum_{k=1}^{n+1} a_i X^i = a_{n+1} \prod^{n+1}_{k=1}(X-x_k) = a_{n+1}(X-x_{n+1})\prod^n_{k=1} (X-x_k)$
+
+Au rang $n$ on a : $\displaystyle\sum_{k=1}^n(X-x_k) = \bfrac{1}{a_n}\sum_{i=0}^na_i X^i$ donc :
+
+$T = a_{n+1}(X-x_{n+1})\bfrac{1}{a_n}\sum_{i=0}^na_i X^i$
+
+$T = a_{n+1}(X-x_{n+1})(\bfrac{1}{a_n} a_n X^n + \bfrac{1}{a_n} a_{n-1} X^{n-1} + \text{Reste})$
+
+\vspace{5px}
+\noindent D'après l'hypothèse de récurrence :
+
+\vspace{5px}
+$T = a_{n+1}(X-x_{n+1})(X^n - \displaystyle\sum_{k=1}^n x_k X^{n-1} + \text{Reste})$
+
+\vspace{2px}
+\noindent Donc après on développe et on utilise l'identification pour montrer que : (j'ai l'impression qu'il faut faire ça)
+
+\vspace{5px}
+$\displaystyle\sum_{k=1}^n x_k = -\bfrac{a_{n-1}}{a_n}$
+
+\vspace{5px}
+
+\noindent\textbf{Comment faire ?? Je sais pas}
+
+\vspace{5px}
+
+\vspace{5px}
+
+\noindent \textbf{\underline{Conclusion} :} \, La propriété est vrai au rang $n = 1$ et le passage du rang $n$ au rang $n+1$ est possible, ainsi d'après le principe de récurrence, la propriété suivante est vrai pour tout $n \in \N^*$ :
+
+Si Q est un polynôme de degré n s'écrivant :
+$Q = a_n \displaystyle\prod^n_{k=1}(X-x_k) = \sum^n_{i=0} a_i X^i$.
+
+\vspace{20px}
+
+Alors on a :
+
+\vspace{-37px}
+
+\[\boxed{\; \sum^n_{k=1} x_k = -\bfrac{a_{n-1}}{a_n} \;}\]
+
+\vspace{10px}
+
+\textbf{2.b.}
+
+\vspace{5px}
+
+\noindent Par identification on trouve $a_n$ et $a_{n-1}$ :
+
+$a_n = \binom{2n+1}{2\times0 +1}(-1)^0 = \binom{2n+1}{1}$
+$a_{n-1} = \binom{2n+1}{2\times1+1}(-1)^1 = -\binom{2n+1}{3}$
+
+\vspace{5px}
+
+\noindent Ainsi :
+
+\begin{flalign*}
+-\bfrac{a_{n-1}}{a_n} &= \bfrac{\binom{2+n1}{3}}{\binom{2n+1}{1}} = \bfrac{(2n+1)!}{3! (2n-2)!}\times\bfrac{1!(2n)!}{(2n+1)!} &&\\
+&= \bfrac{(2n)!}{3!(2n-2)!} = \bfrac{(2n-2)!\times(2n-1)\times(2n)}{3! (2n-2)!} &&\\
+&= \bfrac{n(2n-1)}{3}
+\end{flalign*}
+
+\vspace{5px}
+
+\[\boxed{\; \text{La somme des racines de $P_n$ est : } S_n = \bfrac{n(2n-1)}{3} \;} \]
+
+\vspace{10px}
+
+\textbf{3.a.}
+
+\begin{itemize}
+  \item {
+    Montrons $\sin(t) \leq t$ c'est-à-dire montrons $\forall t \in [0, \tfrac{\pi}{2}[, \quad t-\sin(t) \geq 0$.
+    
+    $(t-\sin t)' = 1 - \cos t$
+    
+    Or $\cos t \in [-1, 1]$ donc l'expression $1-\cos t$ est positive et donc c est croissant.
+    
+    Or en évaluant l'expression $1-\sin t$ en 0, on obtient $1-\sin 0 = 0$. $1- \sin t$ est donc positive.
+    
+    Ainsi on a $\forall t \in [0, \tfrac{\pi}{2}[, \quad \sin(t) \leq t$
+  }
+  \item {
+    De la même manière montrons $\forall t \in [0, \tfrac{\pi}{2}], t \leq \tan t$, on étudie le signe de $\tan t - t$ :
+    
+    $(\tan t - t)' = 1 + \tan^2(t) -1 = \tan^2(t)$. Donc $(\tan t -t)' \geq 0$.
+    
+    Ainsi $\tan t - t$ est croissante.
+    
+    Or vu que $\tan 0 - 0 = 0$, on a $\tan t - t \geq > 0$, donc $t \leq \tan t$
+  }
+\end{itemize}
+
+\noindent Nous avons d'une part $\sin t \leq t$ et d'une autre $t \leq \tan t$. Ainsi :
+
+\vspace{5px}
+
+\[\boxed{\; \forall t \in [0, \tfrac{\pi}{2}[, \quad \sin t \leq t \leq \tan t \;} \]
+
+\vspace{10px}
+
+\noindent On a d'une part :
+
+\begin{flalign*}
+& \sin t \leq t \Longleftrightarrow \sin^2(t) \leq t^2 &&\\
+&\Longleftrightarrow \bfrac{\sin^2(t)}{\cos^2(t) + \sin^2(t)} \leq t^2 \Longleftrightarrow \bfrac{\cos^2(t) + \sin^2(t)}{\sin^2(t)} \geq \bfrac{1}{t^2} \Longleftrightarrow \cotan^2(t) + 1 \geq \bfrac{1}{t^2} &&\\
+\end{flalign*}
+
+\noindent Et de l'autre :
+
+\begin{flalign*}
+t \leq \tan t \Longleftrightarrow \bfrac{1}{t^2} \geq \bfrac{1}{\tan t} \Longleftrightarrow \bfrac{1}{t^2} \geq \cotan^2(t)
+\end{flalign*}
+
+\vspace{5px}
+
+\noindent Ainsi, $\cotan^2(t) + 1 \geq \bfrac{1}{t^2} \geq \cotan^2(t)$, où encore :
+
+\vspace{5px}
+
+\[\boxed{\; \forall t \in ]0, \tfrac{\pi}{2}[, \quad \cotan^2(t) \leq \bfrac{1}{t^2} \leq 1+\cotan^2(t) \;} \]
+
+\vspace{10px}
+
+\newpage
+
+\textbf{3.b.}
+
+\noindent On évalue l'inégalité obtenue à la question 3.a. en $t = \bfrac{k\pi}{2n+1}$, on obtient alors :
+
+\begin{center}
+$\cotan^2\Bigg(\bfrac{k\pi}{2n+1}\Bigg) \leq \bfrac{1}{\big(\frac{k\pi}{2n+1}\big)^2} \leq 1+\cotan^2\Bigg(\bfrac{k\pi}{2n+1}\Bigg)$
+
+$\Longleftrightarrow \cotan^2\Bigg(\bfrac{k\pi}{2n+1}\Bigg) \leq \bfrac{(2n+1)^2}{k^2\pi^2} \leq 1+\cotan^2\Bigg(\bfrac{k\pi}{2n+1}\Bigg)$
+
+$\Longleftrightarrow \displaystyle\sum_{k=1}^n x_k \leq \displaystyle\sum_{k=1}^n \bfrac{(2n+1)^2}{\pi^2 k^2} \leq \sum_{k=1}^n n + \sum_{k=1}^n x_k$
+
+\vspace{5px}
+
+D'après la question 2.b. on connaît la valeur de $\sum_{k=1}^n x_k$ :
+
+\vspace{5px}
+
+$\Longleftrightarrow \bfrac{n(2n-1)}{3} \leq \sum_{k=1}^n \bfrac{(2n+1)^2}{\pi^2 k^2} \leq n + \bfrac{n(2n-1)}{3}$
+\end{center}
+
+\[\boxed{\; \forall n \in \N^*, \quad \bfrac{n(2n-1)}{3} \leq \sum_{k=1}^n \bfrac{(2n+1)^2}{\pi^2 k^2} \leq n + \bfrac{n(2n-1)}{3} \;}\]
+
+\vspace{10px}
+
+\textbf{3.c.}
+
+\noindent On note, pour tout $n \in \N^*$, la suite $(u_n)$ tel que $u_n = \displaystyle\sum_{k=1}^n \bfrac{1}{k^2}$
+
+\noindent D'après la question 3.b on a un encadrement de la suite $(u_n)$ :
+
+$\forall n \in \N^*, \quad \bfrac{n(2n-1)}{3}\times \bfrac{\pi^2}{(2n+1)^2} \geq \sum_{k=1}^n \frac{1}{k^2} \geq \bfrac{\pi^2}{(2n+1)^2} \Bigg( n + \bfrac{n(2n-1)}{3} \Bigg)$
+
+\vspace{5px}
+
+\noindent On étudie séparément les limites de la suite de chaque borne :
+
+\begin{itemize}
+  \item {
+    $\bfrac{\pi^2 n(2n-1)}{3(2n+1)^2} = \bfrac{\pi^2}{3} \times \bfrac{2n^2-n}{4n^2 + 4n + 1}$
+    $=  \bfrac{\pi^2}{3} \times \bfrac{2-\tfrac{1}{n}}{4+\tfrac{4}{n}+\tfrac{1}{n^2}} \longrightarrow \bfrac{\pi^2}{3} \times \bfrac{2}{4} = \bfrac{\pi^2}{6}$
+  }
+  \item {
+    $\bfrac{\pi^2}{(2n+1)^2} \Bigg( n + \bfrac{n(2n-1)}{3} \Bigg) = \bfrac{3n\pi^2 + \pi^2 n(2n-1)}{3(2n+1)^2}$
+    
+    $= \bfrac{\pi^2}{3} \times \bfrac{n(2n+2)}{(2x+1)^2} = \bfrac{\pi^2}{3} \times \bfrac{n^2+2x}{4n^2+4n+1} = \bfrac{\pi^2}{3} \times \bfrac{2+\tfrac{2}{n}}{4+\tfrac{4}{n}+\tfrac{1}{n^2}}$
+    $=  \longrightarrow \bfrac{\pi^2}{3} \times \bfrac{2}{4} = \bfrac{\pi^2}{6}$
+  }
+\end{itemize}
+
+\noindent Les deux bornes convergent vers la même limite, ainsi d'après le théorème des gendarmes :
+
+\[\boxed{\; \text{La suite $(u_n)$ converge et sa limite est $\bfrac{\pi^2}{6}$} \;}\]
+\end{document}
+
